@@ -3,54 +3,10 @@ local wallpaper_config = {
   normal_wallpaper = "landscape1.jpg",
 }
 
-
-local function run_powershell(cmd)
-  local stdout = vim.loop.new_pipe(false)
-  local stderr = vim.loop.new_pipe(false)
-
-  local handle
-  handle = vim.loop.spawn("powershell.exe", {
-    args = { "-c", cmd },
-    stdio = {nil, stdout, stderr},
-  }, function(code, signal)
-    stdout:close()
-    stderr:close()
-    handle:close()
-    print("PowerShell exited with code " .. code .. ", signal " .. signal)
-  end)
-
-  vim.loop.read_start(stdout, function(err, data)
-    if err then
-      print("stdout error: ", err)
-    end
-    if data then
-      print("stdout: " .. data)
-    end
-  end)
-
-  vim.loop.read_start(stderr, function(err, data)
-    if err then
-      print("stderr error: ", err)
-    end
-    if data then
-      print("stderr: " .. data)
-    end
-  end)
-end
-
--- function to change wallpaper based on desktop environment
 local function change_wallpaper(image_path)
   local is_wsl_env = os.getenv("WSLENV")
 
-  if is_wsl_env then
-    run_powershell(string.format(
-      "Set-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name Wallpaper -Value '%s'; rundll32.exe user32.dll,UpdatePerUserSystemParameters 1, True",
-      "C:\\Users\\henri\\Pictures\\Wallpapers\\" .. image_path
-    ))
-
-    print("background: " .. image_path)
-
-  else
+  if not is_wsl_env then
     image_path = "/usr/share/backgrounds/" .. image_path
 
     local display = os.getenv("display") or ":0"
