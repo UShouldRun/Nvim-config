@@ -1,3 +1,4 @@
 require("ushouldrun.wallpaper")
+require("ushouldrun.templates")
 require("ushouldrun.remap")
 require("ushouldrun.set")

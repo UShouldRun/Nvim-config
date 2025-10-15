@@ -1,5 +1,5 @@
 local wallpaper_config = {
-  nvim_wallpaper = "linkin_park_wallpaper.png",
+  nvim_wallpaper = "linkin_park_wallpaper_2.jpg",
   normal_wallpaper = "landscape1.jpg",
 }
 
@@ -41,26 +41,23 @@ local function change_wallpaper(image_path)
       print("no wallpaper tool found. please install feh, nitrogen, or xwallpaper")
     end
   end
-
 end
 
 local wallpaper_group = vim.api.nvim_create_augroup("wallpaperchanger", { clear = true })
 
--- change to coding wallpaper when entering neovim
-vim.api.nvim_create_autocmd("UIEnter", {
-  group = wallpaper_group,
-  callback = function()
-    change_wallpaper(wallpaper_config.nvim_wallpaper)
-  end,
-})
-
--- restore normal wallpaper when exiting neovim
-vim.api.nvim_create_autocmd("VimLeave", {
-  group = wallpaper_group,
-  callback = function()
-    change_wallpaper(wallpaper_config.normal_wallpaper)
-  end,
-})
+-- vim.api.nvim_create_autocmd("UIEnter", {
+  -- group = wallpaper_group,
+  -- callback = function()
+    -- change_wallpaper(wallpaper_config.nvim_wallpaper)
+  -- end,
+-- })
+-- 
+-- vim.api.nvim_create_autocmd("VimLeave", {
+  -- group = wallpaper_group,
+  -- callback = function()
+    -- change_wallpaper(wallpaper_config.normal_wallpaper)
+  -- end,
+-- })
 
 -- optional: manual commands to change wallpaper
 vim.api.nvim_create_user_command("CodingWallpaper", function()
