@@ -1,4 +1,5 @@
-local mark = require("harpoon.mark")
+local ok, mark = pcall(require, "harpoon.mark")
+if not ok then return end
 local ui = require("harpoon.ui")
 
 vim.keymap.set("n", "<leader>a", mark.add_file)

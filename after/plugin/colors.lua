@@ -1,6 +1,6 @@
 function ColorScheme(color)
 	color = color or 'everblush'
-	vim.cmd.colorscheme(color)
+	if not pcall(vim.cmd.colorscheme, color) then return end
 	
 	-- List of highlight groups to make transparent
 	local groups = {

@@ -1,3 +1,4 @@
+require("ushouldrun.packer")
 require("ushouldrun.wallpaper")
 require("ushouldrun.templates")
 require("ushouldrun.remap")
